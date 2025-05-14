@@ -11,10 +11,7 @@
   --font-outfit: var(--font-outfit);
 }
 
-@theme {
-
-}
-
+@theme {}
 
 @layer base {
   *,
@@ -28,5 +25,99 @@
 }
 
 @layer components {
+  .navbar {
+    @apply p-4 shadow-md;
+
+    nav {
+      @apply container mx-auto flex justify-between items-center;
+
+      a {
+        @apply flex items-center space-x-2 text-2xl font-semibold;
+      }
+    }
+  }
+
+  .recipes-grid {
+    @apply flex flex-wrap justify-center gap-6;
+  }
   
+  .recipe-card {
+    @apply max-w-[320px] border rounded-lg p-4 hover:shadow-md transition flex flex-col items-center;
+
+    h2 {
+      @apply text-lg font-semibold mb-2;
+    }
+
+    img {
+      @apply rounded-lg object-cover;
+    }
+  }
+  
+  .recipes {
+    @apply p-4;
+
+    h1 {
+      @apply text-2xl font-bold mb-4;
+    }
+  }
+
+  .recipe {
+    @apply flex flex-col md:flex-row p-6 gap-6;
+
+    .info {
+      @apply md:w-2/3;
+
+      h1 {
+        @apply text-3xl font-bold mt-4;
+      }
+
+      .area-link {
+        @apply text-blue-500 underline mt-2 block;
+      }
+
+      .instructions {
+        @apply mt-4;
+
+        h2 {
+          @apply text-xl font-semibold mb-2;
+        }
+
+        p {
+          @apply text-gray-700 whitespace-pre-wrap;
+        }
+      }
+
+      .ingredients {
+        @apply mt-6;
+
+        h2 {
+          @apply text-xl font-semibold mb-2;
+        }
+
+        .ingredients-list {
+          @apply list-disc list-inside;
+
+          a {
+            @apply text-blue-600 hover:underline;
+          }
+      }
+      }  
+    }
+
+    .sidebar {
+      @apply md:w-1/3 border-l pl-4;
+
+      h2 {
+        @apply text-xl font-bold mb-4;
+      }
+
+      .related-recipes {
+        @apply space-y-2;
+
+        a {
+          @apply text-blue-600 hover:underline;
+        }
+      }
+    }
+  }
 }

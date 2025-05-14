@@ -7,7 +7,6 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const recipe = await getRecipe(id);
   const relatedRecipes = await getRecipes({ category: recipe.strCategory });
 
-
   const handleIngredients = () => {
     const ingredients = [];
     for (let i = 1; i <= 20; i++) {
@@ -23,9 +22,9 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const ingredients = handleIngredients();
 
   return (
-    <div className="flex flex-col md:flex-row p-6 gap-6">
+    <div className="recipe">
       {/* Left side */}
-      <div className="md:w-2/3">
+      <div className="info">
         <Image
           src={recipe.strMealThumb}
           alt={recipe.strMeal}
@@ -33,28 +32,27 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           height={300}
           className="rounded-lg"
         />
-        <h1 className="text-3xl font-bold mt-4">{recipe.strMeal}</h1>
+        <h1>{recipe.strMeal}</h1>
 
         <Link
           href={`/?area=${recipe.strArea}`}
-          className="text-blue-500 underline mt-2 block"
+          className="area-link"
         >
           From: {recipe.strArea}
         </Link>
 
-        <div className="mt-4">
-          <h2 className="text-xl font-semibold mb-2">Instructions</h2>
-          <p className="text-gray-700 whitespace-pre-wrap">{recipe.strInstructions}</p>
+        <div className="instructions">
+          <h2>Instructions</h2>
+          <p>{recipe.strInstructions}</p>
         </div>
 
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
-          <ul className="list-disc list-inside">
+        <div className="ingredients">
+          <h2>Ingredients</h2>
+          <ul className="ingredients-list">
             {ingredients.map((ing, idx) => (
               <li key={idx}>
                 <Link
                   href={`/?ingredient=${encodeURIComponent(ing.name)}`}
-                  className="text-blue-600 hover:underline"
                 >
                   {ing.name}
                 </Link>{' '}
@@ -66,16 +64,15 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
       </div>
 
       {/* Right sidebar */}
-      <aside className="md:w-1/3 border-l pl-4">
-        <h2 className="text-xl font-bold mb-4">More in {recipe.strCategory}</h2>
-        <ul className="space-y-2">
+      <aside className="sidebar">
+        <h2>More in {recipe.strCategory}</h2>
+        <ul className="related-recipes">
           {relatedRecipes
             .filter((r) => r.idMeal !== recipe.idMeal)
             .map((r) => (
               <li key={r.idMeal}>
                 <Link
                   href={`/recipe/${r.idMeal}`}
-                  className="text-blue-600 hover:underline"
                 >
                   {r.strMeal}
                 </Link>

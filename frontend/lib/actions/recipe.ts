@@ -2,7 +2,8 @@
 
 import { getEnv } from "../utils";
 
-const API_URL = getEnv('API_URL');
+// const API_URL = getEnv('API_URL');
+const API_URL = "http://localhost:3001/recipes";
 
 const buildURL = ({ category, ingredient, area }: RecipeSearchParams) => {
   const params = new URLSearchParams();

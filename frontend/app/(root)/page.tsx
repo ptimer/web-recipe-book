@@ -13,12 +13,12 @@ const Page = async ({ searchParams }: { searchParams: Promise<RecipeSearchParams
   const recipes = await getRecipes(params);
 
   return (
-    <div className="recipes">
+    <main className="recipes">
       <h1>{handleTitle(params)}</h1>
-      <div className="recipes-grid">
+      <section className="recipes-grid">
         {recipes.map((recipe) => <RecipeCard key={recipe.idMeal} recipe={recipe} />)}
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 

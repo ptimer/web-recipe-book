@@ -22,9 +22,9 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const ingredients = handleIngredients();
 
   return (
-    <div className="recipe">
+    <main className="recipe">
       {/* Left side */}
-      <div className="info">
+      <section className="info">
         <Image
           src={recipe.strMealThumb}
           alt={recipe.strMeal}
@@ -61,7 +61,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             ))}
           </ul>
         </div>
-      </div>
+      </section>
 
       {/* Right sidebar */}
       <aside className="sidebar">
@@ -80,7 +80,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             ))}
         </ul>
       </aside>
-    </div>
+    </main>
   );
 };
 

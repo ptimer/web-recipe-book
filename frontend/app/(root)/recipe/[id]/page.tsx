@@ -1,32 +1,18 @@
+import { getRecipe, getRecipes } from '@/lib/actions/recipe';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 
-type Props = {
-  params: { id: string };
-};
+const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
+  const recipe = await getRecipe(id);
+  const relatedRecipes = await getRecipes({ category: recipe.strCategory });
 
-const getRecipeDetails = async (id: string) => {
-  const res = await fetch(`http://localhost:3001/recipes/${id}`, { cache: 'no-store' });
-  const data = await res.json();
-  return data.meals[0];
-};
 
-const getRelatedRecipes = async (category: string) => {
-  const res = await fetch(`http://localhost:3001/recipes?category=${category}`, { cache: 'no-store' });
-  const data = await res.json();
-  return data.meals;
-};
-
-const Page = async ({ params }: Props) => {
-  const recipe = await getRecipeDetails(params.id);
-  const relatedRecipes = await getRelatedRecipes(recipe.strCategory);
-
-  const getIngredients = () => {
+  const handleIngredients = () => {
     const ingredients = [];
     for (let i = 1; i <= 20; i++) {
-      const ingredient = recipe[`strIngredient${i}`];
-      const measure = recipe[`strMeasure${i}`];
+      const ingredient = (recipe as any)[`strIngredient${i}`];
+      const measure = (recipe as any)[`strIngredient${i}`];
       if (ingredient && ingredient.trim()) {
         ingredients.push({ name: ingredient, measure });
       }
@@ -34,7 +20,7 @@ const Page = async ({ params }: Props) => {
     return ingredients;
   };
 
-  const ingredients = getIngredients();
+  const ingredients = handleIngredients();
 
   return (
     <div className="flex flex-col md:flex-row p-6 gap-6">
@@ -84,8 +70,8 @@ const Page = async ({ params }: Props) => {
         <h2 className="text-xl font-bold mb-4">More in {recipe.strCategory}</h2>
         <ul className="space-y-2">
           {relatedRecipes
-            .filter((r: any) => r.idMeal !== recipe.idMeal)
-            .map((r: any) => (
+            .filter((r) => r.idMeal !== recipe.idMeal)
+            .map((r) => (
               <li key={r.idMeal}>
                 <Link
                   href={`/recipe/${r.idMeal}`}

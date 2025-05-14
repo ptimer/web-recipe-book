@@ -8,7 +8,11 @@ const handleTitle = ({ category, ingredient, area }: RecipeSearchParams) => {
   return 'All Recipes';
 };
 
-const Page = async ({ searchParams }: { searchParams: Promise<RecipeSearchParams> }) => {
+interface Props {
+  searchParams: Promise<RecipeSearchParams>;
+}
+
+const Page = async ({ searchParams }: Props) => {
   const params = await searchParams;
   const recipes = await getRecipes(params);
 

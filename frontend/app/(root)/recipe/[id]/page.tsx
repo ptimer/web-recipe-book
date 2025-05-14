@@ -2,7 +2,11 @@ import { getRecipe, getRecipes } from '@/lib/actions/recipe';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
+interface Props {
+  params: Promise<{ id: string }>
+}
+
+const Page = async ({ params }: Props) => {
   const { id } = await params;
   const recipe = await getRecipe(id);
   const relatedRecipes = await getRecipes({ category: recipe.strCategory });

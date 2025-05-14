@@ -15,6 +15,7 @@ const buildURL = ({ category, ingredient, area }: RecipeSearchParams) => {
   return params.toString() ? `${API_URL}?${params.toString()}` : API_URL;
 };
 
+// TODO: try catch
 export const getRecipes = async (params: RecipeSearchParams) => {
     const url = buildURL(params);
 
@@ -28,6 +29,7 @@ export const getRecipes = async (params: RecipeSearchParams) => {
     return data.meals as Recipe[];
 };
 
+// TODO: try catch
 export const getRecipe = async (id: string) => {
   const res = await fetch(`${API_URL}/${id}`, { cache: 'no-store' });
 
